@@ -22,7 +22,8 @@ Available options and default values:
 
 ## Installation
 
-To install via [Vim-Plug](https://github.com/junegunn/vim-plug) add line to your 'vimrc' file:
+To install via [Vim-Plug](https://github.com/junegunn/vim-plug) add line to your `vimrc` file:
+
 `Plug 'kuznetsss/shswitch'`
 
 I haven't tested but similar line should work with other vim plugin managers.
