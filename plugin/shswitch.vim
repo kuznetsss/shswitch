@@ -60,7 +60,12 @@ function! g:SHSwitch()
         echo "SHSwitch: Can't find relative file"
         return
     endif
-    exe 'edit ' . l:result
+
+    if &modified
+        exe 'split ' . l:result
+    else
+        exe 'edit ' . l:result
+    endif
 endfunction
 
 command! SHSwitch call SHSwitch()
