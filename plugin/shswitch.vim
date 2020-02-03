@@ -2,15 +2,6 @@ let g:shswitch_source_extensions = get(g:, 'shswitch_source_extensions', ['c', '
 let g:shswitch_header_extensions = get(g:, 'shswitch_header_extensions', ['h', 'hpp'])
 let g:shswitch_root_flags = get(g:, 'shswitch_root_flags', ['CMakeLists.txt'])
 
-function! CheckRoot(directory) 
-    for flag in g:shswitch_root_flags
-        if filereadable(a:directory . '/' . flag)
-            return 1
-        endif
-    endfor
-    return 0
-endfunction
-
 function! FindFile(start_directory, filenames)
     " Check local files
     for f in a:filenames
@@ -19,16 +10,23 @@ function! FindFile(start_directory, filenames)
         endif
     endfor
 
-    let l:directory = a:start_directory
-    
-    while !CheckRoot(l:directory) && l:directory != '/'
-        let l:directory = fnamemodify(l:directory, ':h')
-    endwhile
+    " Find project root
+    for flag in g:shswitch_root_flags
+        let l:root_flag = findfile(flag, a:start_directory . ';')
+        if strlen(l:root_flag) != 0
+            break
+        endif
+    endfor
+    if strlen(l:root_flag) == 0
+        echo "SHSwitch: Can't find project root. Check that 'g:shswitch_root_flags' is correct."
+        return 'None'
+    endif
+
+    let l:root_path = fnamemodify(l:root_flag, ':h')
 
     for f in a:filenames
-        let l:result = system('find ' . l:directory . ' -type f -name ' . f . 
-                    \ ' 2>/dev/null | head -n 1')
-        if l:result != ''
+        let l:result = findfile(f, l:root_path . '**')
+        if strlen(l:result) != 0
             return l:result
         endif
     endfor
