@@ -1,6 +1,6 @@
 # SHSwitch vim plugin
 
-SHSwitch is a simple plugin to switch between header and source files. 
+SHSwitch is a simple plugin to switch between header and source files. It assumes that header and source file has same name but may be located at different directories.
 
 ## Usage
 
@@ -17,8 +17,8 @@ Available options and default values:
 ## Algorithm of searching corresponding file 
 
 * Check if corresponding file is in current directory.
-* If not jump to parent directory until not find one of `g:shswitch_root_flags`.
-* Use bash `find` command to find corresponding file in project root directory.
+* Find one of `g:shswitch_root_flags` in directory above current and assume that directory with found root flag is project root.
+* Find corresponding file recursive in project root directory.
 
 ## Installation
 
