@@ -17,7 +17,7 @@ Available options and default values:
 ## Algorithm of searching corresponding file 
 
 * Check if corresponding file is in current directory.
-* Find one of `g:shswitch_root_flags` in directory above current and assume that directory with found root flag is project root.
+* Search upward for one of `g:shswitch_root_flags` in directory above current and assume that directory with found root flag is project root.
 * Find corresponding file recursive in project root directory.
 
 ## Installation
