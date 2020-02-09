@@ -36,7 +36,7 @@ endfunction
 
 function! g:SHSwitch()
     let l:current_file_ext = expand('%:e')
-    let l:current_file_name = expand("%:r")
+    let l:current_file_name = fnamemodify(expand("%:r"), ":t")
     let l:target_extensions = []
     let l:target_file_variants = []
 
