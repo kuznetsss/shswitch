@@ -61,6 +61,10 @@ function! g:SHSwitch()
         return
     endif
 
+    if &autowrite
+        write
+    endif
+
     if &modified
         exe 'split ' . l:result
     else
